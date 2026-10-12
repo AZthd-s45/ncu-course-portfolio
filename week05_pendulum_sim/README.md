@@ -9,26 +9,54 @@
 | 周次 | 第 5 周 |
 | 子模块目录 | `week05_pendulum_sim/` |
 
-## 2. 无菌工作区就绪状态
+## 2. 实验概述
 
-- [x] 独立子模块目录 `week05_pendulum_sim/` 已在仓库根目录创建
-- [x] 目录内不含任何来自其他周次的源码、数据或构建产物
-- [x] 不复用/不交叉引用其他实验的运行环境与中间文件
-- [x] 依赖与运行说明仅在本文件内声明，作用域限定于本目录
-- [x] Git 基线已锁定（初始化提交：`feat(week05): init pendulum experiment workspace`）
+该实验实现了一个单摆的数值仿真，用于研究角度与时间的关系，基于常见的非线性摆动方程：
 
-**就绪状态：READY（无菌）**
+θ'' + (g / L) sin(θ) + c θ' = 0
 
-## 3. 目录约定
+其中：
 
-```
+- L：摆长（m）
+- g：重力加速度（m/s²）
+- c：阻尼系数
+- θ：摆角（rad）
+
+## 3. 目录结构
+
+```text
 week05_pendulum_sim/
-├── README.md        # 本说明（实验者信息 + 无菌状态声明）
-├── src/             # 仿真源码（后续创建）
-├── data/            # 输入参数与实验数据（后续创建）
-└── results/         # 输出图表与结果（后续创建）
+├── README.md
+├── __init__.py
+├── __main__.py
+├── requirements.txt
+├── src/
+│   ├── __init__.py
+│   └── pendulum.py
+├── data/
+│   └── default_parameters.json
+├── results/
+│   └── pendulum.csv
 ```
 
 ## 4. 运行说明
 
-待实验实现后补充（运行命令、依赖版本、复现步骤）。
+在仓库根目录执行：
+
+```bash
+python -m week05_pendulum_sim --length 1.0 --gravity 9.81 --theta0 1.57 --total-time 10 --dt 0.01 --output week05_pendulum_sim/results/pendulum.csv --plot
+```
+
+也可以直接在代码中使用：
+
+```python
+from week05_pendulum_sim.src import simulate_pendulum
+
+result = simulate_pendulum(length=1.0, gravity=9.81, theta0=1.57, total_time=10.0)
+print(result[0])
+print(result.theta[:5])
+```
+
+## 5. 结果说明
+
+输出文件 `week05_pendulum_sim/results/pendulum.csv` 记录时间、角度和角速度；如果启用 `--plot`，还会生成同目录下的 `pendulum.png`。未指定 `--output` 时，CSV 默认保存在该子模块的 `results/` 目录。

@@ -39,3 +39,20 @@ NCU-course-portfolio/
 ```
 
 每周实验在对应目录中整理；第五周为单摆仿真实验。
+
+## 已完成：Week 05 单摆仿真
+
+已在 `week05_pendulum_sim/` 中实现最小可运行的单摆仿真模型，包含：
+
+- `src/pendulum.py`：仿真核心逻辑、RK4/欧拉步进与结果保存
+- `__main__.py`：命令行入口，可直接运行仿真
+- `data/default_parameters.json`：默认参数配置
+- `results/`：仿真输出目录
+
+运行示例：
+
+```bash
+python -m week05_pendulum_sim --theta0 1.57 --total-time 10 --dt 0.01 --output week05_pendulum_sim/results/pendulum.csv --plot
+```
+
+输出会生成 CSV 轨迹以及可选的 PNG 图像。
